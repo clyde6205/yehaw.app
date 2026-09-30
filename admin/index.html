@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Yehaw Admin Console</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .admin-wrap { max-width: 720px; margin: 0 auto; padding: 20px 14px 60px; }
+    .admin-wrap h1 { font-size: 1.5rem; margin-bottom: 6px; }
+    .admin-wrap .sub { color: var(--muted); margin-bottom: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 18px; }
+    .card h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--accent); }
+    textarea, input[type="text"], input[type="password"], input[type="number"] {
+      width: 100%; padding: 10px 12px; border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      font-size: 0.95rem; margin-bottom: 8px;
+    }
+    textarea { min-height: 120px; font-family: ui-monospace, monospace; font-size: 0.85rem; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .btn-sm { padding: 10px 16px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; }
+    .btn-save { background: var(--accent); color: #000; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-ghost { background: var(--bg2); color: var(--text); border: 1px solid var(--border); }
+    .login-box { max-width: 360px; margin: 80px auto; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .stat { background: var(--bg); padding: 12px; border-radius: 10px; text-align: center; }
+    .stat b { display: block; font-size: 1.3rem; color: var(--accent); }
+    .msg { padding: 10px; border-radius: 8px; margin-bottom: 12px; display: none; }
+    .msg.ok { background: #14532d; color: #bbf7d0; display: block; }
+    .msg.err { background: #7f1d1d; color: #fecaca; display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <!-- LOGIN -->
+    <div id="login-view" class="login-box card">
+      <h1>Yehaw Admin</h1>
+      <p class="sub">Enter password to continue</p>
+      <input type="password" id="admin-pass" placeholder="Password" autocomplete="current-password" />
+      <div class="btn-row">
+        <button class="btn-sm btn-save" id="btn-login">Login</button>
+      </div>
+      <div class="msg err" id="login-err">Wrong password</div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dash-view" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div>
+          <h1>Admin Console</h1>
+          <p class="sub">Yehaw v1 • local-first config</p>
+        </div>
+        <button class="btn-sm btn-ghost" id="btn-logout">Logout</button>
+      </div>
+      <div class="msg ok" id="save-msg">Saved to this browser. Refresh the main site to apply.</div>
+
+      <!-- Stats -->
+      <div class="card">
+        <h2>Launch Stats (this device)</h2>
+        <div class="stat-grid" id="stats-grid"></div>
+        <div class="btn-row">
+          <button class="btn-sm btn-ghost" id="btn-clear-stats">Clear stats</button>
+        </div>
+      </div>
+
+      <!-- Rates -->
+      <div class="card">
+        <h2>Currency Rates (PHP base)</h2>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:10px">Approximate offline rates. Update when needed.</p>
+        <textarea id="rates-json"></textarea>
+        <div class="btn-row">
+          <button class="btn-sm btn-save" data-save="rates">Save Rates</button>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="card">
+        <h2>Services / Launcher Links</h2>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:10px">JSON array. Add / remove / reorder as needed.</p>
+        <textarea id="services-json" style="min-height:220px"></textarea>
+        <div class="btn-row">
+          <button class="btn-sm btn-save" data-save="services">Save Services</button>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="card">
+        <h2>Tools List</h2>
+        <textarea id="tools-json" style="min-height:160px"></textarea>
+        <div class="btn-row">
+          <button class="btn-sm btn-save" data-save="tools">Save Tools</button>
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="card">
+        <h2>AdSense Settings</h2>
+        <label>Publisher Client ID</label>
+        <input type="text" id="ads-client" placeholder="ca-pub-XXXXXXXXXXXXXXXX" />
+        <label>Top slot</label>
+        <input type="text" id="ads-top" placeholder="1234567890" />
+        <label>Mid slot</label>
+        <input type="text" id="ads-mid" placeholder="0987654321" />
+        <div class="btn-row">
+          <button class="btn-sm btn-save" data-save="adsense">Save AdSense</button>
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:10px">
+          After saving, also replace the hardcoded script tags in index.html with your real publisher ID for production. AdSense requires the site to be live and approved.
+        </p>
+      </div>
+
+      <!-- Password -->
+      <div class="card">
+        <h2>Change Admin Password</h2>
+        <input type="password" id="new-pass" placeholder="New password" />
+        <div class="btn-row">
+          <button class="btn-sm btn-save" id="btn-change-pass">Update Password</button>
+        </div>
+      </div>
+
+      <!-- Danger -->
+      <div class="card">
+        <h2>Reset</h2>
+        <button class="btn-sm btn-danger" id="btn-reset">Clear all overrides (restore defaults)</button>
+      </div>
+
+      <p style="text-align:center;margin-top:30px">
+        <a href="/" style="color:var(--accent)">← Back to Yehaw</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script>
+    const cfg = window.YEHAW_CONFIG;
+    const KEY = "yehaw_admin_auth";
+    const CFG_KEY = "yehaw_config_override";
+    const PASS_KEY = "yehaw_admin_pass";
+
+    function getPass() {
+      return localStorage.getItem(PASS_KEY) || cfg.admin.passwordHash;
+    }
+
+    function isAuthed() {
+      return sessionStorage.getItem(KEY) === "1";
+    }
+
+    function showDash() {
+      document.getElementById("login-view").style.display = "none";
+      document.getElementById("dash-view").style.display = "block";
+      loadEditors();
+      loadStats();
+    }
+
+    function loadEditors() {
+      let override = {};
+      try { override = JSON.parse(localStorage.getItem(CFG_KEY) || "{}"); } catch(e) {}
+      const rates = override.rates || cfg.rates;
+      const services = override.services || cfg.services;
+      const tools = override.tools || cfg.tools;
+      const ads = override.adsense || cfg.adsense;
+
+      document.getElementById("rates-json").value = JSON.stringify(rates, null, 2);
+      document.getElementById("services-json").value = JSON.stringify(services, null, 2);
+      document.getElementById("tools-json").value = JSON.stringify(tools, null, 2);
+      document.getElementById("ads-client").value = ads.client || "";
+      document.getElementById("ads-top").value = (ads.slots && ads.slots.top) || "";
+      document.getElementById("ads-mid").value = (ads.slots && ads.slots.mid) || "";
+    }
+
+    function loadStats() {
+      let stats = {};
+      try { stats = JSON.parse(localStorage.getItem("yehaw_stats") || "{}"); } catch(e) {}
+      const grid = document.getElementById("stats-grid");
+      const entries = Object.entries(stats).sort((a,b) => b[1] - a[1]);
+      if (!entries.length) {
+        grid.innerHTML = "<p style='color:var(--muted)'>No launches recorded yet on this device.</p>";
+        return;
+      }
+      grid.innerHTML = entries.map(([k,v]) => `<div class="stat"><b>${v}</b>${k}</div>`).join("");
+    }
+
+    function saveOverride(partial) {
+      let cur = {};
+      try { cur = JSON.parse(localStorage.getItem(CFG_KEY) || "{}"); } catch(e) {}
+      Object.assign(cur, partial);
+      localStorage.setItem(CFG_KEY, JSON.stringify(cur));
+      const msg = document.getElementById("save-msg");
+      msg.style.display = "block";
+      setTimeout(() => msg.style.display = "none", 3000);
+    }
+
+    // Login
+    document.getElementById("btn-login").addEventListener("click", () => {
+      const p = document.getElementById("admin-pass").value;
+      if (p === getPass()) {
+        sessionStorage.setItem(KEY, "1");
+        showDash();
+      } else {
+        document.getElementById("login-err").style.display = "block";
+      }
+    });
+    document.getElementById("admin-pass").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("btn-login").click();
+    });
+
+    if (isAuthed()) showDash();
+
+    document.getElementById("btn-logout")?.addEventListener("click", () => {
+      sessionStorage.removeItem(KEY);
+      location.reload();
+    });
+
+    // Save buttons
+    document.querySelectorAll("[data-save]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const what = btn.dataset.save;
+        try {
+          if (what === "rates") {
+            saveOverride({ rates: JSON.parse(document.getElementById("rates-json").value) });
+          }
+          if (what === "services") {
+            saveOverride({ services: JSON.parse(document.getElementById("services-json").value) });
+          }
+          if (what === "tools") {
+            saveOverride({ tools: JSON.parse(document.getElementById("tools-json").value) });
+          }
+          if (what === "adsense") {
+            saveOverride({
+              adsense: {
+                client: document.getElementById("ads-client").value.trim(),
+                slots: {
+                  top: document.getElementById("ads-top").value.trim(),
+                  mid: document.getElementById("ads-mid").value.trim()
+                }
+              }
+            });
+          }
+        } catch (err) {
+          alert("Invalid JSON: " + err.message);
+        }
+      });
+    });
+
+    document.getElementById("btn-change-pass")?.addEventListener("click", () => {
+      const np = document.getElementById("new-pass").value;
+      if (np.length < 6) return alert("Min 6 characters");
+      localStorage.setItem(PASS_KEY, np);
+      alert("Password updated for this browser.");
+      document.getElementById("new-pass").value = "";
+    });
+
+    document.getElementById("btn-clear-stats")?.addEventListener("click", () => {
+      localStorage.removeItem("yehaw_stats");
+      loadStats();
+    });
+
+    document.getElementById("btn-reset")?.addEventListener("click", () => {
+      if (confirm("Clear all config overrides?")) {
+        localStorage.removeItem(CFG_KEY);
+        loadEditors();
+        alert("Defaults restored.");
+      }
+    });
+  </script>
+</body>
+</html>
