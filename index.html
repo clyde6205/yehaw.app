@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Yehaw — Full Filipino Directory + Fast Tools & Browser. Recipes, calculator, rates, GCash, Grab, Foodpanda, Jollibee and everything Filipinos use daily." />
+  <title>Yehaw — Full Filipino Directory + Fast Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <!-- Google AdSense (replace ca-pub-XXXXXXXX with your publisher ID) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Persistent top chrome — always visible, returns to home -->
+  <header id="topbar" class="topbar">
+    <button id="btn-home" class="btn-icon" aria-label="Home" title="Yehaw Home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </button>
+    <div class="brand" id="brand">
+      <span class="logo">yehaw</span>
+      <span class="tag">Filipino directory + tools</span>
+    </div>
+    <button id="btn-menu" class="btn-icon" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </header>
+
+  <!-- Main content area -->
+  <main id="app" class="app">
+    <!-- HOME VIEW -->
+    <section id="view-home" class="view active">
+      <!-- Ad slot top -->
+      <div class="ad-slot ad-top" id="ad-top">
+        <!-- AdSense unit: replace with your ad unit code -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <div class="section-header">
+        <h1>Tools + Recipes</h1>
+        <p class="sub">Fast · Offline · No sign-up · Food first</p>
+      </div>
+
+      <div class="tools-grid" id="tools-grid">
+        <!-- Populated by JS from config -->
+      </div>
+
+      <div class="section-header mt">
+        <h1>Full Filipino Directory</h1>
+        <p class="sub">One tap → the services you already use every day</p>
+      </div>
+
+      <div class="launcher-grid" id="launcher-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Ad slot mid -->
+      <div class="ad-slot ad-mid" id="ad-mid">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="0987654321"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <div class="footer-note">
+        <p>Full Filipino Directory + Fast Tools • Made for Filipinos</p>
+        <p class="tiny">External links open in a new tab. Tap Home anytime to return to Yehaw. Ads keep the site free.</p>
+      </div>
+    </section>
+
+    <!-- TOOL VIEW (dynamic) -->
+    <section id="view-tool" class="view">
+      <div class="tool-header">
+        <button id="btn-back" class="btn-text">← Back</button>
+        <h2 id="tool-title">Tool</h2>
+      </div>
+      <div id="tool-body" class="tool-body"></div>
+    </section>
+
+    <!-- LAUNCHER / BROWSER CHROME VIEW -->
+    <section id="view-browser" class="view">
+      <div class="browser-bar">
+        <button id="btn-browser-home" class="btn-icon" aria-label="Yehaw Home">⌂</button>
+        <div class="url-display" id="url-display">Opening…</div>
+        <button id="btn-browser-close" class="btn-text">Close</button>
+      </div>
+      <div class="browser-msg">
+        <p>Opening external service…</p>
+        <p class="tiny">If the page does not load, tap the link below. You can always return with the home button.</p>
+        <a id="fallback-link" href="#" target="_blank" rel="noopener" class="btn-primary">Open in new tab</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom nav — always present on mobile -->
+  <nav id="bottomnav" class="bottomnav">
+    <button class="nav-item active" data-view="home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-view="tools">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Tools</span>
+    </button>
+    <button class="nav-item" data-view="services">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+      <span>Services</span>
+    </button>
+  </nav>
+
+  <!-- Side menu -->
+  <div id="sidemenu" class="sidemenu">
+    <div class="sidemenu-header">
+      <span class="logo">yehaw</span>
+      <button id="btn-close-menu" class="btn-icon">✕</button>
+    </div>
+    <nav class="sidemenu-nav">
+      <a href="#" data-action="home">Home</a>
+      <a href="#" data-action="tools">All Tools</a>
+      <a href="#" data-action="services">All Services</a>
+      <a href="/admin/" class="admin-link">Admin Console</a>
+      <a href="#" data-action="install" id="btn-install" style="display:none">Install Yehaw App</a>
+      <a href="#" data-action="about">About</a>
+    </nav>
+  </div>
+  <div id="overlay" class="overlay"></div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/tools.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(console.warn);
+      });
+    }
+  </script>
+</body>
+</html>
