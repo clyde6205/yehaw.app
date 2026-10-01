@@ -330,6 +330,19 @@ html, body {
   backdrop-filter: blur(4px);
 }
 
+/* Filipino Hub tag chip */
+.hub-tag {
+  align-self: flex-start;
+  background: linear-gradient(90deg, #ffd166, #ffb703);
+  color: #052e16;
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.3px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+
 /* Woven-pattern divider (T'nalak-inspired) */
 .weave {
   height: 10px;
@@ -570,6 +583,7 @@ html, body {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* Browser badge on bottom nav */
+.tab-badge[hidden] { display: none; }
 .tab-badge {
   position: absolute;
   top: 4px;

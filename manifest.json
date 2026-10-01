@@ -1,7 +1,7 @@
 {
   "name": "Yehaw — Full Filipino Directory + Fast Tools",
   "short_name": "Yehaw",
-  "description": "Filipino directory, recipes, calculator, rates and one-tap access to GCash, Grab, Foodpanda and more.",
+  "description": "The Filipino Hub — built for Filipinos, by Filipinos. Launcher, directory, fast browser, recipes, calculator, rates and one-tap access to GCash, Grab, Foodpanda and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",

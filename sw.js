@@ -1,4 +1,4 @@
-const CACHE = "yehaw-v2";
+const CACHE = "yehaw-v3";
 const ASSETS = [
   "/",
   "/index.html",
@@ -6,6 +6,7 @@ const ASSETS = [
   "/js/config.js",
   "/js/tools.js",
   "/js/browser.js",
+  "/js/ads.js",
   "/js/app.js",
   "/img/hero.svg",
   "/img/weave.svg",

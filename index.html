@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0f172a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="description" content="Yehaw is the Filipino launcher, directory and fast browser: open GCash, Grab, Shopee, Jollibee and every app you use daily in one window — plus offline tools, PHP rates and classic Filipino recipes. Free, no sign-up." />
+  <meta name="description" content="Yehaw is the Filipino Hub — built for Filipinos, by Filipinos. The launcher, directory and fast browser for GCash, Grab, Shopee, Jollibee and every app you use daily, plus offline tools, PHP rates and classic Filipino recipes. Free, no sign-up." />
   <meta name="keywords" content="Filipino directory, Filipino launcher, fast browser, GCash, Grab, Shopee, Lazada, Jollibee, Foodpanda, Filipino recipes, PHP exchange rate, Philippines apps, Pinoy tools" />
   <link rel="canonical" href="https://yehaw.app/" />
 
@@ -14,18 +14,18 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Yehaw" />
   <meta property="og:url" content="https://yehaw.app/" />
-  <meta property="og:title" content="Yehaw — Filipino Launcher, Directory &amp; Fast Browser" />
+  <meta property="og:title" content="Yehaw — Filipino Hub: Launcher, Directory &amp; Fast Browser" />
   <meta property="og:description" content="One window to the Filipino internet: GCash, Grab, Shopee, Jollibee and 20+ services, offline tools and recipes. No sign-up, no clutter." />
   <meta property="og:image" content="https://yehaw.app/img/hero.svg" />
   <meta property="og:locale" content="en_PH" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Yehaw — Filipino Launcher, Directory &amp; Fast Browser" />
+  <meta name="twitter:title" content="Yehaw — Filipino Hub: Launcher, Directory &amp; Fast Browser" />
   <meta name="twitter:description" content="One window to the Filipino internet: every app, tool and recipe in one place." />
   <meta name="twitter:image" content="https://yehaw.app/img/hero.svg" />
 
-  <title>Yehaw — Filipino Launcher, Directory &amp; Fast Browser</title>
+  <title>Yehaw — Filipino Hub: Launcher, Directory &amp; Fast Browser</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" href="/icons/icon-192.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
@@ -67,8 +67,6 @@
   }
   </script>
 
-  <!-- Google AdSense (replace ca-pub-XXXXXXXX with your publisher ID) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Persistent top chrome — always visible, returns to home -->
@@ -78,7 +76,7 @@
     </button>
     <a class="brand" id="brand" href="/" aria-label="Yehaw home">
       <span class="logo">yehaw</span>
-      <span class="tag">Filipino launcher · directory · fast browser</span>
+      <span class="tag">Filipino Hub · launcher · directory · fast browser</span>
     </a>
     <button id="btn-menu" class="btn-icon" aria-label="Menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -93,6 +91,7 @@
       <div class="hero">
         <img class="hero-art" src="/img/hero.svg" alt="Yehaw — a jeepney under the eight-ray Philippine sun" width="1200" height="630" fetchpriority="high" />
         <div class="hero-text">
+          <span class="hub-tag">🇵🇭 Filipino Hub · Built for Filipinos, by Filipinos</span>
           <h1>One window to the Filipino internet</h1>
           <p>Launcher · Directory · Fast Browser. Every app you use daily, one tap, zero clutter.</p>
           <div class="hero-actions">
@@ -110,7 +109,7 @@
       </div>
 
       <!-- Ad slot top -->
-      <div class="ad-slot ad-top" id="ad-top">
+      <div class="ad-slot ad-top" id="ad-top" data-ad-slot-name="top">
         <!-- AdSense unit: replace with your ad unit code -->
         <ins class="adsbygoogle"
              style="display:block"
@@ -118,7 +117,6 @@
              data-ad-slot="1234567890"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
 
       <!-- Most used (auto-ranked from real launches) -->
@@ -147,18 +145,17 @@
       </div>
 
       <!-- Ad slot mid -->
-      <div class="ad-slot ad-mid" id="ad-mid">
+      <div class="ad-slot ad-mid" id="ad-mid" data-ad-slot-name="mid">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
              data-ad-slot="0987654321"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
 
       <div class="footer-note">
-        <p>Full Filipino Directory + Fast Tools • Made for Filipinos</p>
+        <p>🇵🇭 Filipino Hub • Built for Filipinos, by Filipinos</p>
         <p class="tiny">External links open in a new tab. Tap Home anytime to return to Yehaw. Ads keep the site free.</p>
       </div>
     </section>
@@ -230,6 +227,7 @@
   <div id="overlay" class="overlay"></div>
 
   <script src="/js/config.js"></script>
+  <script src="/js/ads.js"></script>
   <script src="/js/tools.js"></script>
   <script src="/js/browser.js"></script>
   <script src="/js/app.js"></script>
