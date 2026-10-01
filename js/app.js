@@ -42,7 +42,7 @@
     const v = $(`#view-${id}`);
     if (v) v.classList.add("active");
     // Update bottom nav
-    $$(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === id || (id === "tool" && n.dataset.view === "tools")));
+    $$(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === id || (id === "tool" && n.dataset.view === "tools") || (id === "browser" && n.dataset.view === "browser")));
     // Scroll top
     window.scrollTo(0, 0);
   }
@@ -55,33 +55,126 @@
   }
 
   function launchService(id, url) {
-    // Strategy for "always pull back to Yehaw":
-    // 1. Open in new tab (user can switch back easily on mobile)
-    // 2. Show a persistent message + home button on this page
-    // 3. Optionally try same-tab with history push so back button returns here
+    // Hand off to the Yehaw Fast Browser: every launch becomes a saved tab in
+    // one window — no more hunting through home screens or stray browser windows.
     const service = cfg.services.find(s => s.id === id);
-    $("#url-display").textContent = url;
-    $("#fallback-link").href = url;
+    window.YehawBrowser.openTab({
+      name: service ? service.name : url,
+      url: url,
+      icon: service ? service.icon : "🌐",
+      color: service ? service.color : "#1e3a5f",
+      serviceId: id
+    });
     showView("browser");
+  }
 
-    // Prefer new tab so Yehaw stays in history / home screen
-    const w = window.open(url, "_blank", "noopener,noreferrer");
-    if (!w) {
-      // Popup blocked — fall back to same tab
-      window.location.href = url;
+  // ---------- Most Used (auto-ranked from real launches) ----------
+  function renderMostUsed() {
+    const section = $("#most-used-section");
+    const grid = $("#mostused-grid");
+    if (!section || !grid) return;
+    let stats = {};
+    try { stats = JSON.parse(localStorage.getItem("yehaw_stats") || "{}"); } catch (e) {}
+    const ranked = cfg.services
+      .map(s => ({ s, n: stats[s.id] || 0 }))
+      .filter(x => x.n > 0)
+      .sort((a, b) => b.n - a.n)
+      .slice(0, 4);
+    if (!ranked.length) { section.hidden = true; grid.innerHTML = ""; return; }
+    section.hidden = false;
+    grid.innerHTML = ranked.map(({ s }) => `
+      <a class="service-card" href="${s.url}" data-service="${s.id}" rel="noopener">
+        <div class="service-icon" style="background:${s.color || 'var(--bg)'}">${s.icon}</div>
+        <div class="service-name">${s.name}</div>
+      </a>`).join("");
+    grid.querySelectorAll(".service-card").forEach(a => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        launchService(a.dataset.service, a.href);
+      });
+    });
+  }
+
+  // ---------- Universal search (tools + services + recipes) ----------
+  function wireSearch() {
+    const input = $("#global-search");
+    const box = $("#search-results");
+    if (!input || !box) return;
+    const index = [
+      ...cfg.tools.map(t => ({ kind: "Tool", name: t.name, icon: t.icon, color: "var(--bg2)", run: () => openTool(t.id, t.type) })),
+      ...cfg.services.map(s => ({ kind: "Service", name: s.name, icon: s.icon, color: s.color, run: () => launchService(s.id, s.url) })),
+      ...(cfg.recipes || []).map(r => ({ kind: "Recipe", name: r.name, icon: "🍲", color: "var(--bg2)", run: () => openTool("recipes", "recipes") }))
+    ];
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const close = () => { box.hidden = true; box.innerHTML = ""; };
+    input.addEventListener("input", () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { close(); return; }
+      const hits = index.filter(i => i.name.toLowerCase().includes(q)).slice(0, 8);
+      if (!hits.length) {
+        box.innerHTML = '<div class="search-empty">No matches — try "GCash" or "adobo"</div>';
+        box.hidden = false;
+        return;
+      }
+      box.innerHTML = hits.map(h => `
+        <button class="search-item" data-i="${index.indexOf(h)}">
+          <span class="search-ico" style="background:${h.color}">${h.icon}</span>
+          <span>${esc(h.name)}</span>
+          <span class="search-kind">${h.kind}</span>
+        </button>`).join("");
+      box.hidden = false;
+      box.querySelectorAll(".search-item").forEach(btn => {
+        btn.addEventListener("click", () => { close(); input.blur(); index[+btn.dataset.i].run(); });
+      });
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const first = box.querySelector(".search-item");
+        if (first) { close(); input.blur(); index[+first.dataset.i].run(); }
+      }
+      if (e.key === "Escape") close();
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-wrap")) close();
+    });
+  }
+
+  // ---------- Hero actions ----------
+  function wireHero() {
+    $$("[data-hero]").forEach(b => {
+      b.addEventListener("click", () => {
+        if (b.dataset.hero === "browser") {
+          showView("browser");
+          window.YehawBrowser.render();
+        } else {
+          document.querySelector(".launcher-grid")?.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+  }
+
+  // ---------- Deep links: ?q= (SearchAction) and ?view=browser (PWA shortcut) ----------
+  function handleParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("view") === "browser") {
+      showView("browser");
+      window.YehawBrowser.render();
     }
-    // Track simple open count for admin later
-    try {
-      const stats = JSON.parse(localStorage.getItem("yehaw_stats") || "{}");
-      stats[id] = (stats[id] || 0) + 1;
-      localStorage.setItem("yehaw_stats", JSON.stringify(stats));
-    } catch (e) {}
+    const q = params.get("q");
+    if (q) {
+      const input = $("#global-search");
+      if (input) { input.value = q; input.dispatchEvent(new Event("input")); input.focus(); }
+    }
   }
 
   // ---------- Event wiring ----------
   function init() {
     renderTools();
     renderServices();
+    renderMostUsed();
+    wireSearch();
+    wireHero();
+    handleParams();
 
     // Home button (top + browser)
     $("#btn-home")?.addEventListener("click", () => showView("home"));
@@ -93,6 +186,11 @@
     $$(".nav-item").forEach(btn => {
       btn.addEventListener("click", () => {
         const v = btn.dataset.view;
+        if (v === "browser") {
+          showView("browser");
+          window.YehawBrowser.render();
+          return;
+        }
         if (v === "home" || v === "tools" || v === "services") {
           showView("home");
           if (v === "tools") {

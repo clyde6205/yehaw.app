@@ -1,11 +1,14 @@
-const CACHE = "yehaw-v1";
+const CACHE = "yehaw-v2";
 const ASSETS = [
   "/",
   "/index.html",
   "/css/styles.css",
   "/js/config.js",
   "/js/tools.js",
+  "/js/browser.js",
   "/js/app.js",
+  "/img/hero.svg",
+  "/img/weave.svg",
   "/manifest.json",
   "/admin/",
   "/admin/index.html"

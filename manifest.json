@@ -24,5 +24,25 @@
   ],
   "categories": ["utilities", "productivity", "finance"],
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Fast Browser",
+      "short_name": "Browser",
+      "description": "Open the Yehaw tabbed fast browser",
+      "url": "/?view=browser"
+    },
+    {
+      "name": "All Tools",
+      "short_name": "Tools",
+      "description": "Calculator, PHP rates, recipes and more",
+      "url": "/#tools"
+    },
+    {
+      "name": "All Services",
+      "short_name": "Services",
+      "description": "GCash, Grab, Shopee and the full Filipino directory",
+      "url": "/#services"
+    }
+  ]
 }

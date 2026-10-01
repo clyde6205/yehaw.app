@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Yehaw — jeepney under the Philippine sun">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1834"/>
+      <stop offset=".55" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#133252"/>
+    </linearGradient>
+    <radialGradient id="sunglow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffd76e" stop-opacity=".85"/>
+      <stop offset=".45" stop-color="#f4b942" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#f4b942" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#f0a836"/>
+    </linearGradient>
+    <linearGradient id="jeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e7490"/>
+      <stop offset="1" stop-color="#155e75"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#sky)"/>
+
+  <!-- palm fronds, corners -->
+  <g fill="#0a3d33" opacity=".55">
+    <path d="M-20,40 C120,-10 240,10 330,60 C240,80 120,90 -20,40 Z"/>
+    <path d="M-20,10 C90,40 170,90 210,150 C110,130 20,90 -20,10 Z"/>
+    <path d="M1220,40 C1080,-10 960,10 870,60 C960,80 1080,90 1220,40 Z"/>
+    <path d="M1220,10 C1110,40 1030,90 990,150 C1090,130 1180,90 1220,10 Z"/>
+  </g>
+
+  <!-- sun rays burst -->
+  <g stroke="#ffd76e" stroke-width="2" opacity=".13">
+    <line x1="600" y1="200" x2="600" y2="-140"/>
+    <line x1="600" y1="200" x2="857" y2="-57"/>
+    <line x1="600" y1="200" x2="940" y2="200"/>
+    <line x1="600" y1="200" x2="857" y2="457"/>
+    <line x1="600" y1="200" x2="600" y2="540"/>
+    <line x1="600" y1="200" x2="343" y2="457"/>
+    <line x1="600" y1="200" x2="260" y2="200"/>
+    <line x1="600" y1="200" x2="343" y2="-57"/>
+  </g>
+
+  <circle cx="600" cy="200" r="330" fill="url(#sunglow)"/>
+
+  <!-- 8-ray Philippine sun -->
+  <g transform="translate(600 200)">
+    <g fill="url(#gold)">
+      <path d="M-11,-36 L0,-102 L11,-36 Z"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(45)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(90)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(135)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(180)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(225)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(270)"/>
+      <path d="M-11,-36 L0,-102 L11,-36 Z" transform="rotate(315)"/>
+      <circle r="32"/>
+    </g>
+  </g>
+
+  <!-- 3 stars of the flag -->
+  <g fill="url(#gold)" opacity=".9">
+    <path d="M0,-18 L4.1,-5.7 L17.1,-5.6 L6.7,2.2 L10.6,14.6 L0,7 L-10.6,14.6 L-6.7,2.2 L-17.1,-5.6 L-4.1,-5.7 Z" transform="translate(350 118)"/>
+    <path d="M0,-18 L4.1,-5.7 L17.1,-5.6 L6.7,2.2 L10.6,14.6 L0,7 L-10.6,14.6 L-6.7,2.2 L-17.1,-5.6 L-4.1,-5.7 Z" transform="translate(850 118)"/>
+    <path d="M0,-18 L4.1,-5.7 L17.1,-5.6 L6.7,2.2 L10.6,14.6 L0,7 L-10.6,14.6 L-6.7,2.2 L-17.1,-5.6 L-4.1,-5.7 Z" transform="translate(600 66)"/>
+  </g>
+
+  <!-- jeepney -->
+  <g>
+    <rect x="298" y="352" width="540" height="42" rx="10" fill="#155e75"/>
+    <rect x="200" y="392" width="780" height="132" rx="12" fill="url(#jeep)"/>
+    <rect x="200" y="432" width="112" height="92" rx="8" fill="#0c4a5f"/>
+    <circle cx="216" cy="478" r="10" fill="#ffd76e"/>
+    <!-- windows -->
+    <g fill="#0b1222">
+      <rect x="340" y="408" width="88" height="52" rx="6"/>
+      <rect x="446" y="408" width="88" height="52" rx="6"/>
+      <rect x="552" y="408" width="88" height="52" rx="6"/>
+      <rect x="658" y="408" width="88" height="52" rx="6"/>
+      <rect x="764" y="408" width="88" height="52" rx="6"/>
+    </g>
+    <!-- festive stripes -->
+    <rect x="200" y="478" width="780" height="14" fill="#ef4444"/>
+    <rect x="200" y="500" width="780" height="8" fill="#ffd76e"/>
+    <rect x="200" y="512" width="780" height="4" fill="#ffffff" opacity=".85"/>
+    <!-- wheels -->
+    <g>
+      <circle cx="300" cy="540" r="36" fill="#0b1222" stroke="#475569" stroke-width="6"/>
+      <circle cx="300" cy="540" r="10" fill="#475569"/>
+      <circle cx="880" cy="540" r="36" fill="#0b1222" stroke="#475569" stroke-width="6"/>
+      <circle cx="880" cy="540" r="10" fill="#475569"/>
+    </g>
+  </g>
+
+  <!-- sea -->
+  <path d="M0,588 Q150,570 300,588 T600,588 T900,588 T1200,588 V630 H0 Z" fill="#0a2a48" opacity=".9"/>
+  <path d="M0,606 Q150,590 300,606 T600,606 T900,606 T1200,606 V630 H0 Z" fill="#082240" opacity=".8"/>
+</svg>

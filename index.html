@@ -6,12 +6,67 @@
   <meta name="theme-color" content="#0f172a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="description" content="Yehaw — Full Filipino Directory + Fast Tools & Browser. Recipes, calculator, rates, GCash, Grab, Foodpanda, Jollibee and everything Filipinos use daily." />
-  <title>Yehaw — Full Filipino Directory + Fast Tools</title>
+  <meta name="description" content="Yehaw is the Filipino launcher, directory and fast browser: open GCash, Grab, Shopee, Jollibee and every app you use daily in one window — plus offline tools, PHP rates and classic Filipino recipes. Free, no sign-up." />
+  <meta name="keywords" content="Filipino directory, Filipino launcher, fast browser, GCash, Grab, Shopee, Lazada, Jollibee, Foodpanda, Filipino recipes, PHP exchange rate, Philippines apps, Pinoy tools" />
+  <link rel="canonical" href="https://yehaw.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Yehaw" />
+  <meta property="og:url" content="https://yehaw.app/" />
+  <meta property="og:title" content="Yehaw — Filipino Launcher, Directory &amp; Fast Browser" />
+  <meta property="og:description" content="One window to the Filipino internet: GCash, Grab, Shopee, Jollibee and 20+ services, offline tools and recipes. No sign-up, no clutter." />
+  <meta property="og:image" content="https://yehaw.app/img/hero.svg" />
+  <meta property="og:locale" content="en_PH" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yehaw — Filipino Launcher, Directory &amp; Fast Browser" />
+  <meta name="twitter:description" content="One window to the Filipino internet: every app, tool and recipe in one place." />
+  <meta name="twitter:image" content="https://yehaw.app/img/hero.svg" />
+
+  <title>Yehaw — Filipino Launcher, Directory &amp; Fast Browser</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" href="/icons/icon-192.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
+  <link rel="preload" as="image" href="/img/hero.svg" fetchpriority="high" />
   <link rel="stylesheet" href="/css/styles.css" />
+
+  <!-- Structured data: WebSite + WebApplication + Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Yehaw",
+        "url": "https://yehaw.app/",
+        "inLanguage": "en",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://yehaw.app/?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Yehaw",
+        "url": "https://yehaw.app/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "description": "Filipino launcher, directory and fast browser with offline tools, PHP currency rates and classic Filipino recipes.",
+        "featureList": "Filipino app launcher, Service directory, Tabbed fast browser, Offline calculator, PHP exchange rates, Filipino recipes",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PHP" }
+      },
+      {
+        "@type": "Organization",
+        "name": "Yehaw",
+        "url": "https://yehaw.app/"
+      }
+    ]
+  }
+  </script>
+
   <!-- Google AdSense (replace ca-pub-XXXXXXXX with your publisher ID) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 </head>
@@ -21,10 +76,10 @@
     <button id="btn-home" class="btn-icon" aria-label="Home" title="Yehaw Home">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     </button>
-    <div class="brand" id="brand">
+    <a class="brand" id="brand" href="/" aria-label="Yehaw home">
       <span class="logo">yehaw</span>
-      <span class="tag">Filipino directory + tools</span>
-    </div>
+      <span class="tag">Filipino launcher · directory · fast browser</span>
+    </a>
     <button id="btn-menu" class="btn-icon" aria-label="Menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
@@ -34,6 +89,26 @@
   <main id="app" class="app">
     <!-- HOME VIEW -->
     <section id="view-home" class="view active">
+      <!-- Filipino hero -->
+      <div class="hero">
+        <img class="hero-art" src="/img/hero.svg" alt="Yehaw — a jeepney under the eight-ray Philippine sun" width="1200" height="630" fetchpriority="high" />
+        <div class="hero-text">
+          <h1>One window to the Filipino internet</h1>
+          <p>Launcher · Directory · Fast Browser. Every app you use daily, one tap, zero clutter.</p>
+          <div class="hero-actions">
+            <button class="hero-btn primary" data-hero="browser">Open Fast Browser</button>
+            <button class="hero-btn ghost" data-hero="directory">Browse Directory</button>
+          </div>
+        </div>
+      </div>
+      <div class="weave" aria-hidden="true"></div>
+
+      <!-- Universal search -->
+      <div class="search-wrap">
+        <input id="global-search" type="search" placeholder="Search — GCash, recipes, calculator…" autocomplete="off" aria-label="Search tools and services" />
+        <div id="search-results" class="search-results" hidden></div>
+      </div>
+
       <!-- Ad slot top -->
       <div class="ad-slot ad-top" id="ad-top">
         <!-- AdSense unit: replace with your ad unit code -->
@@ -46,7 +121,14 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
 
-      <div class="section-header">
+      <!-- Most used (auto-ranked from real launches) -->
+      <div class="section-header" id="most-used-section" hidden>
+        <h1>Most Used</h1>
+        <p class="sub">Your top apps, one tap away</p>
+      </div>
+      <div class="launcher-grid" id="mostused-grid"></div>
+
+      <div class="section-header mt">
         <h1>Tools + Recipes</h1>
         <p class="sub">Fast · Offline · No sign-up · Food first</p>
       </div>
@@ -90,18 +172,21 @@
       <div id="tool-body" class="tool-body"></div>
     </section>
 
-    <!-- LAUNCHER / BROWSER CHROME VIEW -->
-    <section id="view-browser" class="view">
-      <div class="browser-bar">
-        <button id="btn-browser-home" class="btn-icon" aria-label="Yehaw Home">⌂</button>
-        <div class="url-display" id="url-display">Opening…</div>
-        <button id="btn-browser-close" class="btn-text">Close</button>
+    <!-- FAST BROWSER VIEW — tabbed, one window for everything -->
+    <section id="view-browser" class="view view-browser">
+      <div class="browser-chrome">
+        <div class="browser-tabs" id="browser-tabs">
+          <button class="tab-add" id="btn-tab-add" aria-label="New tab">+</button>
+        </div>
+        <div class="browser-toolbar">
+          <button id="btn-browser-home" class="btn-icon" aria-label="Yehaw Home">⌂</button>
+          <form id="browser-urlform" class="url-form">
+            <input id="browser-url" type="text" inputmode="url" placeholder="Type a URL or search…" autocomplete="off" aria-label="Address bar" />
+          </form>
+          <button id="btn-browser-external" class="btn-icon" aria-label="Open current tab in new window" title="Open in new window">↗</button>
+        </div>
       </div>
-      <div class="browser-msg">
-        <p>Opening external service…</p>
-        <p class="tiny">If the page does not load, tap the link below. You can always return with the home button.</p>
-        <a id="fallback-link" href="#" target="_blank" rel="noopener" class="btn-primary">Open in new tab</a>
-      </div>
+      <div id="browser-content" class="browser-content"></div>
     </section>
   </main>
 
@@ -110,6 +195,11 @@
     <button class="nav-item active" data-view="home">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
       <span>Home</span>
+    </button>
+    <button class="nav-item" data-view="browser">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg>
+      <span>Browser</span>
+      <em class="tab-badge" id="tab-badge" hidden></em>
     </button>
     <button class="nav-item" data-view="tools">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -129,6 +219,7 @@
     </div>
     <nav class="sidemenu-nav">
       <a href="#" data-action="home">Home</a>
+      <a href="#" data-action="browser">Yehaw Browser</a>
       <a href="#" data-action="tools">All Tools</a>
       <a href="#" data-action="services">All Services</a>
       <a href="/admin/" class="admin-link">Admin Console</a>
@@ -140,6 +231,7 @@
 
   <script src="/js/config.js"></script>
   <script src="/js/tools.js"></script>
+  <script src="/js/browser.js"></script>
   <script src="/js/app.js"></script>
   <script>
     // Register service worker for PWA
