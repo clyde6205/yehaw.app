@@ -1,4 +1,46 @@
+# Yehaw — full stack dev environment (Base44)
+# web (nginx static PWA + /api proxy on port 3000) → api (Node/Express) → db (Postgres/Neon-compatible)
+
 services:
+  db:
+    image: postgres:16-alpine
+    restart: on-failure
+    environment:
+      POSTGRES_USER: yehaw
+      POSTGRES_PASSWORD: yehaw_dev
+      POSTGRES_DB: yehaw
+    volumes:
+      - yehaw_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yehaw -d yehaw"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    image: node:22-alpine
+    restart: on-failure
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    command: ["sh", "-ec", "npm install --no-audit --no-fund && exec node --watch server.js"]
+    environment:
+      - DATABASE_URL=postgres://yehaw:yehaw_dev@db:5432/yehaw
+      - PORT=4000
+    env_file:
+      - /run/base44/app.env
+    ports:
+      - "8000:4000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:4000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
   web:
     image: nginx:alpine
     restart: on-failure
