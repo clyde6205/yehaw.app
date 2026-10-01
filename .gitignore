@@ -1,4 +1,4 @@
-﻿# Environment variables and secrets
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
@@ -22,3 +22,10 @@ coverage/
 Thumbs.db
 .vscode/
 .idea/
+.vercel
+
+# Generated static deployment output
+public/
+
+# Local rollback snapshot - never commit
+.backup-before-browser-home-rebuild/
